@@ -10,7 +10,7 @@ pinned: false
 ---
 
 Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
-# 🤖 Chitti - AI Therapist Chatbot
+# 🤖 Chitti - AI PROJECT RECOMMENDATION CHATBOT
 
 Welcome to **Chitti**, your personal AI-powered therapist chatbot built with 💬 LangChain, 🧠 LLMs, and an intuitive interface. Designed to simulate therapeutic conversations in a supportive and safe environment.
 
