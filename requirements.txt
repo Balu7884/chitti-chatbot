@@ -1,0 +1,9 @@
+gradio
+python-dotenv
+langchain
+langchain-groq
+chromadb
+sentence-transformers
+PyPDF2
+torch
+
