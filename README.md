@@ -31,7 +31,7 @@ This repository contains the full stack of the Babji application, including a Py
 
 ## Project Structure
 
-y-project-assistant/
+My-project-assistant/
 ├── Data/
 │   └── Project-Management-2nd-Edition-1729807212.pdf
 ├── AiTherapist/                  ← Python backend (API, logic, etc.)
@@ -50,6 +50,7 @@ y-project-assistant/
 │   └── node_modules/             ← Ignored by Git
 ├── .gitignore
 └── README.md
+
 
 
 
