@@ -1,4 +1,4 @@
-# Babji - Your Project Assistant
+# Stratisfy - Your Project Assistant
 
 Babji is an AI-powered project assistant designed to help project managers and teams efficiently manage their projects. Leveraging advanced language models and document retrieval, Babji can answer questions based on project documentation, providing strategic insights and support throughout the project lifecycle.
 
