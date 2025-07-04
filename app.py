@@ -1,4 +1,3 @@
-import gradio as gr
 import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
@@ -8,6 +7,9 @@ from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # Load environment variables from .env file
 load_dotenv()
@@ -51,43 +53,48 @@ def setup_qa_chain(vector_db, llm):
     )
     return qa_chain
 
-print("Initializing Chatbot")
+print("Initializing Chatbot Backend...")
 llm = initialize_llm()
 db_path = './chroma_db'
 
 if not os.path.exists(db_path):
-    print("Creating ChromaDB")
+    print("Creating ChromaDB...")
     vector_db = create_vector_db()
 else:
     embeddings = HuggingFaceBgeEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')
     vector_db = Chroma(persist_directory=db_path, embedding_function=embeddings)
 
 qa_chain = setup_qa_chain(vector_db, llm)
+print("Chatbot Backend Initialized.")
 
-def chatbot(user_input, history=None):
-    if history is None:
-        history = []
+app = Flask(__name__)
+CORS(app) # Enable CORS for all routes
+
+@app.route('/')
+def home():
+    return "Project Assistant Backend is running!"
+
+@app.route('/ask', methods=['POST'])
+def ask_chatbot():
+    data = request.get_json()
+    user_input = data.get('message')
 
     if not user_input or not user_input.strip():
         response = "Hey! I am Babji your assistant. Please ask me something."
     else:
-        response = qa_chain.run(user_input)
+        try:
+            response = qa_chain.run(user_input)
+            if isinstance(response, tuple):
+                response = response[0]
+            if not isinstance(response, str):
+                response = "Sorry, I couldn't understand your request."
+        except Exception as e:
+            response = f"An error occurred: {str(e)}"
+            print(f"Error during QA chain execution: {e}")
 
-    if isinstance(response, tuple):
-        response = response[0]
+    return jsonify({"response": response})
 
-    if not isinstance(response, str):
-        response = "Sorry, I couldn't understand your request."
-
-    history.append({"role": "assistant", "content": response})
-    return response
-
-with gr.Blocks() as demo:
-    gr.Markdown("# Babji - Your Project Assistant")
-    with gr.Row():
-        input_text = gr.Textbox(label="Type your message")
-    submit_button = gr.Button("Submit")
-    output_text = gr.Textbox(label="Babji's Response")
-    submit_button.click(chatbot, inputs=[input_text], outputs=[output_text])
-
-demo.launch()
+if __name__ == '__main__':
+    # Remove the Gradio part, as React will handle the frontend
+    # demo.launch()
+    app.run(debug=True, port=5000) # Run Flask app on port 5000
