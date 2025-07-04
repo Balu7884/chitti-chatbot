@@ -31,15 +31,15 @@ This repository contains the full stack of the Babji application, including a Py
 
 ## Project Structure
 
-my-project-assistant/
+y-project-assistant/
 ├── Data/
 │   └── Project-Management-2nd-Edition-1729807212.pdf
-├── AiTherapist/ (Your Python Backend Folder)
+├── AiTherapist/                  ← Python backend (API, logic, etc.)
 │   ├── app.py
 │   ├── requirements.txt
 │   ├── .env.example
-│   └── chroma_db/ (Ignored by Git)
-├── my-project-assistant-frontend/ (Your React Frontend Folder)
+│   └── chroma_db/                ← Likely vector DB (e.g., for embeddings), ignored by Git
+├── my-project-assistant-frontend/ ← React frontend
 │   ├── public/
 │   ├── src/
 │   │   ├── App.js
@@ -47,9 +47,10 @@ my-project-assistant/
 │   │   └── index.js
 │   ├── .env.example
 │   ├── package.json
-│   └── node_modules/ (Ignored by Git)
-└── .gitignore
+│   └── node_modules/             ← Ignored by Git
+├── .gitignore
 └── README.md
+
 
 
 ## Setup and Installation
