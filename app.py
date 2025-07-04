@@ -11,7 +11,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-# Load environment variables from .env file
+
 load_dotenv()
 
 def initialize_llm():
@@ -95,6 +95,5 @@ def ask_chatbot():
     return jsonify({"response": response})
 
 if __name__ == '__main__':
-    # Remove the Gradio part, as React will handle the frontend
-    # demo.launch()
-    app.run(debug=True, port=5000) # Run Flask app on port 5000
+    
+    app.run(debug=True, port=5000) 
